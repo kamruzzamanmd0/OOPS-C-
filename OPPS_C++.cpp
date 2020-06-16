@@ -1881,3 +1881,440 @@
 //     postion=fin.tellg();
 //     cout<<postion;
 // }
+
+// =================================================
+// lecture 22
+// Initializers
+// -------------------------------------------------
+
+// Initializers list must be used
+// --for initialization of non-static const data members
+// --for initialization of reference members
+
+// #include<iostream>
+// using namespace std;
+// class Dummy
+// {
+//     private:
+//     int a, b;
+//     const int x;    // const
+//     public:
+//     int &x;
+//     Dummy():x(8)  //Initializers
+//     {}
+
+//     // Dummy()
+//     // {
+//     //     a=5;
+//     // }
+// };
+
+// void fun()
+// {
+//     const int k=3;
+//     k++;   // shoule be error
+// }
+
+// #include<iostream>
+// using namespace std;
+// class Dummy
+// {
+//     private:
+//     int a, b;
+//     const int x;
+//     int &y;                  // reference
+//     public:
+//     Dummy(int &n):x(8),y(n)  //Initializers
+//     {
+//         a=2;b=23;
+//     }
+// };
+
+// int main()
+// {
+//     int m=9;
+//     Dummy d1(m);
+// }
+
+// =================================================
+// lecture 23
+// Deep Copy and Shallow Copy
+// part --01(shallow copy)
+// -------------------------------------------------
+
+// create a copy object::
+// --- Copy constructor
+// --- Defult assignment operator/ implicit operator
+
+// #include <iostream>
+// using namespace std;
+// class Dummy
+// {
+// private:
+//     int a, b;
+
+// public:
+//     void setdata(int x, int y)
+//     {
+//         a = x;
+//         b = y;
+//     }
+//     void showdata()
+//     {
+//         cout << "\na = " << a << "\nb = " << b;
+//     }
+// };
+// int main()
+// {
+//     Dummy d1;
+//     d1.setdata(3, 4);
+//     // copy in here one object to another object
+
+//     Dummy d2 = d1;  //Copy constructor with shellow copy
+
+//     Dummy d3;
+//     d3 = d2;       //Defult assignment operator/ implicit operator
+
+//     d2.showdata();
+//     d3.showdata();
+// }
+
+// =================================================
+// lecture 23
+// Deep Copy and Shallow Copy
+// part --02(Deep  copy)
+// -------------------------------------------------
+
+// #include <iostream>
+// using namespace std;
+// class Dummy
+// {
+// private:
+//     int a, b;
+//     int *p;
+
+// public:
+//     Dummy()
+//     {
+//         p = new int;
+//     }
+//     void setdata(int x, int y, int z)
+//     {
+//         a = x;
+//         b = y;
+//         *p = z;
+//     }
+//     void showdata()
+//     {
+//         cout << "\na = " << a << "\nb = " << b;
+//     }
+//     Dummy(Dummy &d)
+//     {
+//         a = d.a;
+//         b = d.b;
+//         *p = *(d.p);
+//     }
+//     ~Dummy()
+//     {
+//         delete p;
+//     }
+// };
+// int main()
+// {
+//     Dummy d1;
+//     d1.setdata(3, 4, 5);
+//     // copy in here one object to another object
+
+//     Dummy d2 = d1; //Copy constructor with deep copy
+
+//     d2.showdata();
+// }
+
+// =================================================
+// lecture 24
+// Type Conversion Primitivey
+// part -01
+// -------------------------------------------------
+
+// primitive type to primitive type comverstion
+
+// int x=4;
+// float y;
+// y=x; // automatic type conversion  // memoery lose hobe
+
+// float y=5.4;
+// int x;
+// x=y; // automatic type conversion // data lose hobe
+
+//  ##primitive type to class
+
+//  complex c1;
+//  int x=9;
+//  c1=x // error
+
+// ###class type to primitive type
+
+// complex c1;
+// c1.setdata(3,5);
+// int x;
+// x=c1; // error
+
+// ###class to another class type
+
+// =================================================
+// lecture 24
+// Type Conversion Primitivey
+// part -02
+// -------------------------------------------------
+
+// ##primitive type to class
+
+// #include <iostream>
+// using namespace std;
+// class complex
+// {
+//     int a, b;
+// public:
+//     complex() {}  // defult constructure
+//     complex(int k)
+//     {
+//         a = k;
+//         b = 0;
+//     }
+//     void detData(int x, int y)
+//     {
+//         a = x;
+//         b = y;
+//     }
+//     void showdata()
+//     {
+//         cout << "\na= " << a << "\nb= " << b;
+//     }
+// };
+
+// int
+// main()
+// {
+//     complex c1;
+//     int x = 9;
+//     c1 = x; // it's means ---> c1.complex(x);
+//     c1.showdata();
+// }
+
+// =================================================
+// lecture 25
+// Type Conversion Primitivey
+// part -03
+// -------------------------------------------------
+
+// ###class type to primitive type
+//---- costing operator
+// operator type()
+//{
+//     return(type-data);
+// }
+
+// #include <iostream>
+// using namespace std;
+// class complex
+// {
+//     int a, b;
+
+// public:
+//     operator int()   //---- costing operator
+//     {
+//         return a;
+//     }
+//     void setdata(int x, int y)
+//     {
+//         a = x;
+//         b = y;
+//     }
+//     void showdata()
+//     {
+//         cout << "\na =" << a << "\nb =" << b << endl;
+//     }
+
+// };
+
+// int main()
+// {
+//     complex c1;
+//     c1.setdata(3, 4);
+//     c1.showdata();
+//     int x;
+//     x = c1;  // it's means ---->.c1.operator int()
+//     cout << x << endl;
+// }
+
+// =================================================
+// lecture 26
+// Type Conversion Primitivey or class
+// part -03 (it so complicated)
+// -------------------------------------------------
+
+// ###class type to another class type
+
+// #include <iostream>
+// using namespace std;
+
+// class product
+// {
+//     int m, n;
+
+// public:
+//     void setdata(int x, int y)
+//     {
+//         m = x;
+//         n = y;
+//     }
+//     int getM()
+//     {
+//         return m;
+//     }
+//     int getN()
+//     {
+//         return n;
+//     }
+// };
+
+// class Item
+// {
+//     int a, b;
+
+// public:
+//     Item() {}
+//     Item(product p)
+//     {
+//         a = p.getM();
+//         b = p.getN();
+//     }
+//     void showdata()
+//     {
+//         cout << "\na= " << a << "\nb= " << b << endl;
+//     }
+// };
+
+// int main()
+// {
+//     Item i1;
+//     product p1;
+//     p1.setdata(3, 4);
+//     // make a constructor who is left. so, in here  i1
+//     i1 = p1;
+//     i1.showdata();
+// }
+
+// =================================================
+// lecture 27
+// Exception Handling
+// part -01 (try throw and catch)
+// -------------------------------------------------
+
+// #include <iostream>
+// using namespace std;
+// int main()
+// {
+//     int a = 3;
+
+//     try
+//     {
+
+//         if (a == 1)
+//             throw a; //throwing integer exception
+
+//         else if (a == 2)
+//             throw 'A'; //throwing character exception
+
+//         else if (a == 3)
+//             throw 4.5; //throwing float exception
+//     }
+//     catch (int a)
+//     {
+//         cout << "\nInteger exception caught.";
+//     }
+//     catch (char ch)
+//     {
+//         cout << "\nCharacter exception caught.";
+//     }
+//     catch (double d)
+//     {
+//         cout << "\nDouble exception caught.";
+//     }
+
+//     cout << "\nEnd of program.";
+// }
+
+// =================================================
+// lecture 27
+// Exception Handling
+// part -02 (try throw and catch) modifiy part
+// -------------------------------------------------
+
+// #include <iostream>
+// using namespace std;
+// int main()
+// {
+//     int a = 3;
+
+//     try
+//     {
+
+//         if (a == 1)
+//             throw a; //throwing integer exception
+
+//         else if (a == 2)
+//             throw 'A'; //throwing character exception
+
+//         else if (a == 3)
+//             throw 4.5; //throwing float exception
+//     }
+//     catch (...)
+//     {
+//         cout << "\nException occur.";
+//     }
+
+//     cout << "\nEnd of program.";
+// }
+
+// #include <iostream>
+// using namespace std;
+// void fun()
+// {
+//     throw 10;
+// }
+
+// int main()
+// {
+//     int i = 3;
+//     cout << "welcome" << endl;
+//     try
+//     {
+//         if (i == 3)
+//             fun();
+//         cout << "in try" << endl;
+//     }
+//     catch (...)
+//     {
+//         cout << "Exception no:" << endl;
+//     }
+//     cout << "Last line" << endl;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
